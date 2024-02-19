@@ -1,0 +1,30 @@
+USE metro_cdmx;
+
+-- Seleccionar todo muestra tosos los datos de la tabla
+SELECT * FROM `lines`;
+
+-- Filtrar por columnas solo muestra los datos id y name de la tabla lines
+SELECT id, name, color FROM `lines`;
+
+-- Operaciones matemáticas con SELECT se pueden realizar operaciones matematicas
+
+SELECT (2 + 2);
+
+SELECT (2 + 2) AS resultado;
+
+--- selecionamos la tabla  trains y en la columna year  vemos el promedio del año con avg
+SELECT AVG(year) FROM `trains`; 
+
+SELECT AVG(year) AS year_avg FROM `trains`;
+
+-- consultas anidadas selecionar la colum nombre de la tabal line  y serial nuber de la tabla trnar 
+-- por medio de innner join 
+
+SELECT `lines`.`name`, `trains`.`serial_number` FROM `lines`
+INNER JOIN `trains` ON `lines`.`id` = `trains`.`line_id`;
+
+--ingresa datos para tabla pivot
+INSERT INTO `lines_stations` (line_id, station_id) VALUES(
+            (SELECT `lines`.`id` FROM `lines` WHERE `lines`.`name` = "Línea 9"),
+            (SELECT `stations`.`id` FROM `stations` WHERE `stations`.`name` = "Lázaro Cárdenas")
+        );

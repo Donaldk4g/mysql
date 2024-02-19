@@ -1,0 +1,59 @@
+ALTER TABLE `stations`
+MODIFY `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+ADD PRIMARY KEY(id);
+
+-- ADD CONSTRAINT `trains_line_id_foreign`
+-- FOREIGN KEY (`line_id`) REFERENCES `lines`(`id`);
+
+--Esta instrucción ALTER TABLE está modificando la estructura de la tabla stations. Veamos qué hace cada parte:
+--MODIFY id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT: Esta parte modifica la columna id de la tabla stations. 
+--Se cambia el tipo de datos a BIGINT(20) UNSIGNED, lo que significa que la columna id ahora aceptará valores enteros 
+--grandes sin signo (sin valores negativos) con una longitud máxima de 20 dígitos. También se especifica NOT NULL, lo que 
+--significa que la columna no puede contener valores nulos. Finalmente, se utiliza AUTO_INCREMENT, lo que indica que los valores 
+--de esta columna se generarán automáticamente al insertar nuevas filas en la tabla y se incrementarán automáticamente.
+
+--ADD PRIMARY KEY(id): Esta parte agrega una restricción de clave primaria a la columna id. 
+--Esto significa que la columna id se establece como la clave primaria de la tabla stations, lo que garantiza que cada valor 
+--en esta columna sea único y no nulo.
+
+--- insertar valores a una tabla
+
+USE metro_cdmx;
+
+-- Insertar las líneas del metro
+INSERT INTO `lines` (name, color) VALUES
+("Línea 1", "Rosa"),
+("Línea 2", "Azul"),
+("Línea 3", "Verde olivo");
+
+INSERT INTO `trains` (serial_number, line_id, type, year) VALUES
+('0JFxafE4q8', 1, 1, 1963),
+('2e5v4FHs0T', 3, 2, 1984);
+
+
+----actualizar valores de una TABLESPACE
+USE metro_cdmx;
+
+UPDATE `stations`
+SET name = "Lázaro Cárdenas"
+WHERE id = 1;
+
+UPDATE `stations`
+SET name = "Ferrería"
+WHERE id = 2;
+
+UPDATE `stations`
+SET name = "Pantitlán" WHERE id = 3;
+
+
+-- borrar el dato de una tabla 
+USE metro_cdmx;
+
+DELETE FROM `stations`
+WHERE id = 164;
+
+DELETE FROM `stations`
+WHERE id = 165;
+
+DELETE FROM `stations`
+WHERE name = "Benito Cárdenas";

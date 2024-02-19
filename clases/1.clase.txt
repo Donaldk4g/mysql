@@ -1,0 +1,80 @@
+-- Crear la base de datos
+CREATE DATABASE metro_cdmx;
+
+
+-- crea una tabla llamada lines
+CREATE TABLE `lines` (
+
+    `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT, 
+    `name` VARCHAR(10) NOT NULL,
+    `color` VARCHAR(15) NOT NULL,
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+)
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_unicode_ci;
+
+    --AUTO_INCREMENT: Esta es una característica específica de MySQL que se usa comúnmente con campos numéricos. 
+
+    --NOT NULL: Indica que este campo no puede tener valores nulos, es decir, debe tener un valor válido en cada registro de la tabla.
+
+    --UNSIGNED: Esto significa que el campo solo almacenará números positivos.
+
+    --BIGINT(20): Este es el tipo de dato del campo. BIGINT es un tipo de datos numérico que puede almacenar números enteros muy grandes
+
+    --TIMESTAMP: Es el tipo de datos de la columna. En este caso, representa una marca de tiempo, que generalmente se utiliza para almacenar
+    -- fechas y horas.
+
+    --DEFAULT CURRENT_TIMESTAMP: Es una cláusula que especifica el valor predeterminado para la columna cuando no se proporciona ningún valor
+    -- al insertar una fila en la tabla. En este caso, el valor predeterminado es CURRENT_TIMESTAMP, lo que significa que cuando no se proporciona 
+    --un valor específico para esta columna, se utilizará la fecha y hora actuales del sistema como valor predeterminado.
+
+   -- DEFAULT CHARSET=utf8mb4: Esta línea establece el conjunto de caracteres predeterminado para la tabla. En este caso, el conjunto de 
+    --caracteres es utf8mb4, que es una codificación de caracteres que admite una amplia gama de caracteres, incluidos los emoji y otros 
+    --caracteres multibyte.
+
+--COLLATE=utf8mb4_unicode_ci: Esta línea establece la regla de ordenación predeterminada para la tabla. En este caso, utf8mb4_unicode_ci 
+--significa que la tabla utilizará una regla de ordenación sensible a mayúsculas y minúsculas (ci = case-insensitive) y que seguirá las 
+--reglas de ordenación Unicode.
+
+
+USE metro_cdmx;
+
+-- Creación de la tabla lines_stations
+CREATE TABLE `lines_stations` (
+
+    `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+
+    `line_id` BIGINT(20) UNSIGNED NOT NULL,
+    `station_id` BIGINT(20) UNSIGNED NOT NULL,
+
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (id),
+
+    CONSTRAINT `lines_stations_line_id_foreign` 
+    FOREIGN KEY (`line_id`) REFERENCES `lines` (`id`),
+    
+    CONSTRAINT `lines_stations_station_id_foreign` 
+    FOREIGN KEY (`station_id`) REFERENCES `stations` (`id`)
+) 
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_unicode_ci;
+
+
+ PRIMARY KEY (serial_number),
+    CONSTRAINT `trains_line_id_foreign` 
+    FOREIGN KEY (`line_id`) REFERENCES `lines` (`id`)
+
+
+--PRIMARY KEY (serial_number): Esto indica que la columna serial_number se define como la clave primaria de la tabla. La clave primaria
+-- es un campo (o una combinación de campos) que identifica de manera única cada fila en una tabla. En este caso, serial_number se designa
+-- como la clave primaria, lo que significa que cada valor en esta columna debe ser único y no nulo.
+
+--CONSTRAINT 'trains_line_id_foreign' FOREIGN KEY ('line_id') REFERENCES 'lines' ('id'): Esta línea establece una restricción de clave 
+--externa (foreign key constraint). Esto significa que la columna line_id en la tabla actual es una clave externa que hace referencia 
+--a la columna id en la tabla lines. La restricción asegura la integridad referencial entre las dos tablas, lo que significa que cualquier 
+--valor que se inserte en la columna line_id de esta tabla debe existir en la columna id de la tabla lines. El nombre 'trains_line_id_foreign' 
+--es un identificador único para esta restricción de clave externa.
